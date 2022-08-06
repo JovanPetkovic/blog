@@ -10,6 +10,7 @@
                 </a>
             </h1>
             <div>{{$post->excerpt}}</div>
+            <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a>
         </article>
      @endforeach
 
