@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,14 @@ use App\Models\Category;
 */
 
 Route::get('/', function () {
-
-   // ddd($posts);
     return view('posts', [
-        'posts' => Post::all()
+        'posts' => Post::latest()->with('category')->get()
+    ]);
+});
+
+Route::get('/author/{author:username}', function (User $author) {
+    return view('posts', [
+        'posts' => $author->posts
     ]);
 });
 

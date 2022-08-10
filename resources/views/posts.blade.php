@@ -9,8 +9,9 @@
                     {{$post->title}}
                 </a>
             </h1>
-            <div>{{$post->excerpt}}</div>
+            By <a href="/author/{{$post->author->username}}">{{$post->author->name}}</a> In
             <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a>
+            <div>{{$post->excerpt}}</div>
         </article>
      @endforeach
 
