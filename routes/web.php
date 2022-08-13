@@ -18,7 +18,8 @@ use App\Models\User;
 
 Route::get('/', function () {
     return view('posts', [
-        'posts' => Post::latest()->with('category')->get()
+        'posts' => Post::latest()->with('category')->with('author')->get(),
+        'categories' => Category::all()
     ]);
 });
 
@@ -36,6 +37,8 @@ Route::get('/posts/{post:slug}', function(Post $post) {
 
 Route::get('/categories/{category:slug}',function(Category $category){
     return view('posts', [
-        'posts' => $category->posts
+        'posts' => $category->posts,
+        'categories' => Category::all(),
+        'currentCategory' => $category
     ]);
 });

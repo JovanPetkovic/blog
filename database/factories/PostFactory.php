@@ -21,8 +21,8 @@ class PostFactory extends Factory
             'category_id' => \App\Models\Category::factory(),
             'title' => fake()->sentence,
             'slug' => fake()->slug,
-            'excerpt' => fake()->sentence,
-            'body' => fake()->paragraph
+            'excerpt' => fake()->paragraph(5),
+            'body' => fake()->paragraph(20)
         ];
     }
 }
