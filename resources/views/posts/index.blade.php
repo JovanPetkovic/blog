@@ -3,7 +3,7 @@
 
 @section('content')
 
-    @include('_post-header')
+    @include('posts._header')
 
     <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6 ">
 
@@ -13,7 +13,7 @@
 
         @else
             <div class="lg:grid lg:grid-cols-6">
-            <x-post-card-large :post="$posts[0]" class="col-span-6"/>
+            <x-post-card-large :post="$posts->first()" class="col-span-6"/>
             @foreach($posts->skip(1) as $post)
 
                 @if($loop->iteration < 3)
@@ -28,6 +28,7 @@
             @endforeach
         @endif
             </div>
+            {{$posts->links()}}
     </main>
 {{--    <div class="lg:grid lg:grid-cols-2">--}}
 {{--        <x-post-card-medium/>--}}
