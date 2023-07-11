@@ -16,9 +16,10 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+
         return [
-            'name' => fake()->word,
-            'slug' => fake()->slug
+            'name' => fake()->unique()->word,
+            'slug' => fake()->unique()->slug
         ];
     }
 }
