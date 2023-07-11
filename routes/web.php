@@ -37,3 +37,10 @@ Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');
+Route::post('admin/posts', [PostController::class, 'savePost'])->middleware('admin');
+Route::delete('admin/posts/{post:slug}/delete', [PostController::class, 'delete'])->middleware('admin');
+
+Route::get('comment/{id}/edit', [CommentController::class, 'edit'])->middleware('auth');
+Route::post('comment/{id}', [CommentController::class, 'post'])->middleware('auth');
+Route::delete('comment/{id}/delete', [CommentController::class, 'delete'])->middleware('auth');
+

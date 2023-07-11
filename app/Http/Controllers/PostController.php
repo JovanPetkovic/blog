@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use MarkSitko\LaravelUnsplash\Unsplash;
 
 class PostController extends Controller
 {
@@ -28,5 +29,37 @@ class PostController extends Controller
     /**/
     public function create(){
         return view('posts.create');
-}
+    }
+
+    public function savePost(){
+        request()->validate([
+            'title' => ['required'],
+            'excerpt' => ['required'],
+            'body' => ['required'],
+            'category' => ['required']
+        ]);
+        $unsplash = new Unsplash();
+        $user_id = auth()->user()->id;
+        $picture_url = $unsplash->randomPhoto()
+            ->orientation('landscape')
+            ->term('programming')->toCollection()['urls']['regular'];
+
+        $post = new Post;
+
+        $post = Post::create([
+            'author_id' => $user_id,
+            'title' => request('title'),
+            'excerpt' => request('excerpt'),
+            'body' => request('body'),
+            'category_id' => request('category'),
+            'img_url' => $picture_url,
+            'slug' => fake()->slug
+        ]);
+
+    }
+
+    public function delete($postSlug){
+        $post = Post::where('slug', $postSlug)->get()->first();
+        $post->delete();
+    }
 }

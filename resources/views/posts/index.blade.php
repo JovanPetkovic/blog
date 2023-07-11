@@ -12,7 +12,7 @@
         <h1>No posts yet... Come back soon</h1>
 
         @else
-            <div class="lg:grid lg:grid-cols-6">
+            <div class="lg:grid lg:grid-cols-6" x-init @ajax:before="confirm('Are you sure?') || $event.preventDefault()">
             <x-post-card-large :post="$posts->first()" class="col-span-6"/>
             @foreach($posts->skip(1) as $post)
 

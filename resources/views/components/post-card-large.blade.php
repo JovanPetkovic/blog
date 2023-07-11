@@ -1,11 +1,23 @@
-<article
+<article id="post_{{$post->id}}" x-data="{open: true}" x-show="open"
     class="lg:col-span-6 transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl">
     <div class="py-6 px-5 lg:flex">
         <div class="flex-1 lg:mr-8">
             <img src="{{$post->img_url}}" alt="Blog Post illustration" class="rounded-xl">
         </div>
 
-        <div class="flex-1 flex flex-col justify-between">
+        <div class="relative flex-1 flex flex-col justify-between">
+            @if(auth()->check())
+                @if(auth()->user()->role==1)
+                    <div class="flex absolute top-0 right-0">
+                        <form method="post" x-target="post_{{$post->id}}" action="/admin/posts/{{$post->slug}}/delete" class="ml-2">
+                            @method('DELETE')
+                            @csrf
+                            <button class="bg-red-500 text-white text-xs uppercase font-semibold
+                                py-2 px-10 rounded-2xl hover:bg-blue-600" x-on:click="open = !open">Delete</button>
+                        </form>
+                    </div>
+                @endif
+            @endif
             <header class="mt-8 lg:mt-0">
                     <x-category-button :category="$post->category"/>
                 <div class="mt-4">
