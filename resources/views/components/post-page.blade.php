@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <section class="col-start-5 col-span-8 mt-10 space-y-6">
+        <section class="col-start-5 col-span-8 mt-10 space-y-6" id="comment" x-arrange="append">
 
             @include('posts._add-comment-form')
             @foreach($post->comments as $comment)

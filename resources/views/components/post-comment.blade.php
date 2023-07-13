@@ -1,4 +1,5 @@
 {{--@props(['comment'])--}}
+<div id="comment">
 <x-panel class="bg-gray-50" x-data="{open: true}" x-show="open">
     <article class="relative flex space-x-4" id="comment_{{$comment->id}}">
         <div class="flex-shrink-0">
@@ -41,3 +42,4 @@
     </article>
 
 </x-panel>
+</div>

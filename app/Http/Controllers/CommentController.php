@@ -14,12 +14,14 @@ class CommentController extends Controller
             'body'=> ['required']
         ]);
 
-        $post->comments()->create([
+        $comment = $post->comments()->create([
             'user_id' => request()->user()->id,
             'body' => request('body')
         ]);
 
-        return back();
+        return view('components.post-comment' ,[
+            'comment' => $comment
+        ]);
     }
 
     public function edit($id){

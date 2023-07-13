@@ -44,17 +44,19 @@ class PostController extends Controller
             ->orientation('landscape')
             ->term('programming')->toCollection()['urls']['regular'];
 
-        $post = new Post;
+        $post = new Post();
 
-        $post = Post::create([
-            'author_id' => $user_id,
-            'title' => request('title'),
-            'excerpt' => request('excerpt'),
-            'body' => request('body'),
-            'category_id' => request('category'),
-            'img_url' => $picture_url,
-            'slug' => fake()->slug
-        ]);
+        $post->author_id = $user_id;
+        $post->title = request('title');
+        $post->excerpt = request('excerpt');
+        $post->body = request('body');
+        $post->category_id = request('category');
+        $post->img_url = $picture_url;
+        $post->slug = fake()->slug;
+
+        $post->save();
+
+        return route('home');
 
     }
 
