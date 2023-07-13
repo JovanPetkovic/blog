@@ -23,6 +23,7 @@ class RegisterController extends Controller
         ]);
 
         $attributes['role'] = 0;
+        $attributes['api_token'] = Str::random(60);
 
         $user = User::create($attributes);
 

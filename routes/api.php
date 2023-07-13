@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::get('/posts/all', [PostController::class, 'getAllAPI'])->middleware('auth:api');
+Route::get('/posts/{slug}', [PostController::class, 'getAPI'])->middleware('auth:api');
+Route::delete('/posts/{slug}', [PostController::class, 'deleteAPI'])->middleware('auth:api');
+Route::get('/posts/{slug}/comments', [CommentController::class, 'getAllAPI'])->middleware('auth:api');

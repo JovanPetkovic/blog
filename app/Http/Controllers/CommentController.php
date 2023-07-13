@@ -48,4 +48,31 @@ class CommentController extends Controller
         $comment = Comment::find($id);
         $comment->delete();
     }
+
+
+    public function getAllAPI($slug){
+        $post = Post::where('slug', $slug)->get()->first();
+        if (!$post) {
+            return response()->json(['error' => "Post under that slug doesn't exist."],
+                Response::HTTP_NOT_FOUND);
+        }
+        $comments = $post->comments;
+        if (!$comments) {
+            return response()->json(['error' => "There are no comments for this post."],
+                Response::HTTP_NOT_FOUND);
+        }
+        $comments_array = array();
+
+        foreach($comments as $comment){
+            $post_json = array(
+                'comment' => $comment->body,
+                'author' => $comment->author->name
+            );
+            array_push($comments_array,$post_json);
+        }
+
+        $jsonObject = json_encode($comments_array);
+
+        return $jsonObject;
+    }
 }
